@@ -1,4 +1,12 @@
-// calculateDistance finds the distance between any two points
+
+/**
+ * 
+ * @param {*} xa  x coordinate of any point A (x,y)
+ * @param {*} xb  x coordinate of any point B (x,y)
+ * @param {*} ya  y coordinate of any point A (x,y)
+ * @param {*} yb  y coordinate of any point B (x,y)
+ * @returns distance between any two points A & B 
+ */
 export let calculateDistance = (xa, xb, ya, yb) => {
   let run = xb - xa;
   let rise = yb - ya;
@@ -6,35 +14,64 @@ export let calculateDistance = (xa, xb, ya, yb) => {
   return distance;
 };
 
-// Calculating 4 possible angles(theta) for the arrow flanks from the slope.
+ 
+/** 
+ * 
+ * @param {*} arrowSlopeDegree is the slope of the line connecting origin and destination point
+ * @param {*} angle  4 possible theta (factoring the slope)
+ * @returns possible angles(theta) for the arrow flanks from the slope and converts the value from radiance to degree
+ */
 export let arrowAngleCalculation = (arrowSlopeDegree, angle) => {
   return (arrowSlopeDegree + angle) * (Math.PI / 180);
 };
 
-// distanceToOrigin calculates distance between origin and possible coordinates
+
+/**
+ * 
+ * @param {*} angle  4 possible theta (factoring the slope)
+ * @param {*} origin origin parameter 
+ * @param {*} destination destination parameter
+ * @param {*} arrowSidesLength length of arrow side/flank
+ * @returns   calculates the possible coordinates and the distance between origin and these possible coordinates
+ */
 export let distanceToOrigin = (
   angle,
   origin,
   destination,
-  arrowSides
+  arrowSidesLength
 ) => {
-  let x = xCoordinatePossibilities(angle, destination.x, arrowSides);
-  let y = yCoordinatePossibilities(angle, destination.y, arrowSides);
+  let x = xCoordinatePossibilities(angle, destination.x, arrowSidesLength);
+  let y = yCoordinatePossibilities(angle, destination.y, arrowSidesLength);
   // calculate distance between origin and given coordinates
   let distance = calculateDistance(x, origin.x, origin.y, y);
 
   return { distance, x, y };
 };
 
-// Function to calculate the possibilities of X & Y coodinates based on angle and destination coordinates
-let xCoordinatePossibilities = (arrowAngle, destinationX, arrowSides) => {
-  let xPossibility = destinationX + arrowSides * Math.cos(arrowAngle);
+/**
+ * xCoordinatePossibilities calculate the possibilities of X & Y coodinates based on angle and destination coordinates
+ * @param {*} angle 4 possible theta values (factoring the slope)
+ * @param {*} destinationX x coordinate of Destination parameter 
+ * @param {*} arrowSidesLength length of arrow side/flank
+ * @returns possible values of x coordinate
+ */
+
+let xCoordinatePossibilities = (angle, destinationX, arrowSidesLength) => {
+  let xPossibility = destinationX + arrowSidesLength * Math.cos(angle);
   let output = Math.round(xPossibility * 100) / 100;
   return output;
 };
 
-let yCoordinatePossibilities = (arrowAngle, destinationY, arrowSides) => {
-  let yPossibility = destinationY + arrowSides * Math.sin(arrowAngle);
+/**
+ * 
+ * @param {*} angle 4 possible theta values (factoring the slope)
+ * @param {*} destinationY y coordinate of Destination parameter
+ * @param {*} arrowSidesLength length of arrow side/flank
+ * @returns possible values of y coordinate
+ */
+
+let yCoordinatePossibilities = (angle, destinationY, arrowSidesLength) => {
+  let yPossibility = destinationY + arrowSidesLength * Math.sin(angle);
   let output = Math.round(yPossibility * 100) / 100;
   return output;
 };
