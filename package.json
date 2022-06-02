@@ -1,0 +1,12 @@
+{
+  "name": "calculate-flank-points",
+  "version": "1.0.0",
+  "description": "<h1> Introduction </h1>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ankita Zaveri",
+  "license": "ISC",
+  "type": "module"
+}
